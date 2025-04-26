@@ -1,7 +1,5 @@
-// components/sections/WorksSection.tsx
 import React from "react";
 import { motion } from "framer-motion";
-import SkillsSection from "./SkillsSection";
 
 interface Experience {
   title: string;
@@ -12,11 +10,11 @@ interface Experience {
   technologies: string[];
 }
 
-const WorksSection = () => {
+const WorkExperienceSection = () => {
   const experiences: Experience[] = [
     {
       title: "Founding Full Stack Software Engineer",
-      company: "Pinhous",
+      company: "Pinhous.com",
       location: "Remote",
       period: "June 2024 - Current",
       responsibilities: [
@@ -78,7 +76,7 @@ const WorksSection = () => {
   };
 
   return (
-    <section className="py-16 text-white w-full max-w-4xl mx-auto">
+    <div id="works" className="py-16 text-white w-full max-w-4xl mx-auto">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -137,8 +135,8 @@ const WorksSection = () => {
           </motion.div>
         ))}
       </motion.div>
-    </section>
+    </div>
   );
 };
 
-export default WorksSection;
+export default WorkExperienceSection;

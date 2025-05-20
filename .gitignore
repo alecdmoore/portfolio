@@ -41,4 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 #deployment
-deploy-package
+/deploy-package
+/deploy

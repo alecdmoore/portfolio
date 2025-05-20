@@ -17,7 +17,7 @@ const Navbar = () => {
 
   const sections: Section[] = [
     { id: "hero", label: "Home" },
-    { id: "works", label: "Works" },
+    { id: "works", label: "Experience" },
     { id: "education", label: "Education" },
     { id: "skills", label: "Skills" },
     { id: "contact", label: "Contact" },

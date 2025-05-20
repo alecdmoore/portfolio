@@ -18,7 +18,7 @@ const WorksSection = () => {
       title: "Founding Full Stack Software Engineer",
       company: "Pinhous",
       location: "Remote",
-      period: "June 2024 - Current",
+      period: "June 2024 - February 2025",
       responsibilities: [
         "Lead the design and development of the Pinhous Real Estate application that services listing agents and general customers",
         "Architected the company OAUTH system for user authentication and authorization",

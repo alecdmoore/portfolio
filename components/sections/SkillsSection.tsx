@@ -13,13 +13,19 @@ const SkillsSection = () => {
   const skillCategories: SkillCategory[] = [
     {
       name: "Languages",
-      skills: ["JavaScript", "Python", "HTML", "CSS", "Bash"],
+      skills: ["JavaScript", "TypeScript", "Python", "HTML", "CSS", "Bash"],
       icon: "⌨️",
       color: "from-blue-500 to-blue-700",
     },
     {
       name: "Frontend",
-      skills: ["React.js", "Redux Toolkit", "TailwindCSS"],
+      skills: [
+        "React.js",
+        "Next.js",
+        "Redux Toolkit",
+        "TailwindCSS",
+        "Framer Motion",
+      ],
       icon: "🖥️",
       color: "from-purple-500 to-purple-700",
     },
@@ -30,7 +36,7 @@ const SkillsSection = () => {
       color: "from-green-500 to-green-700",
     },
     {
-      name: "Databases",
+      name: "Database",
       skills: [
         "SQL (Postgres, MySQL)",
         "NoSQL (MongoDB)",
@@ -55,9 +61,21 @@ const SkillsSection = () => {
     },
     {
       name: "Design & Tools",
-      skills: ["Figma", "Adobe Photoshop", "Chai"],
+      skills: ["Figma", "Adobe Photoshop", "Adobe Illustrator"],
       icon: "🎨",
       color: "from-pink-500 to-pink-700",
+    },
+    {
+      name: "Testing",
+      skills: [
+        "Jest",
+        "Postman",
+        "Unit Testing",
+        "Integration Testing",
+        "End-to-End Testing",
+      ],
+      icon: "✅",
+      color: "from-teal-500 to-teal-700",
     },
   ];
 
@@ -82,7 +100,7 @@ const SkillsSection = () => {
   };
 
   return (
-    <motion.div variants={fadeInUp} className="py-8">
+    <motion.div variants={fadeInUp} className="py-8 max-w-4xl mx-auto">
       <motion.div variants={fadeInUp} className="mb-12 text-center">
         <h2 className="text-4xl font-bold mb-4 text-blue-500">
           Technical skills

@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Check, Mail, MessageSquare } from "lucide-react";
+import { Check, Mail, MessageSquare, AlertCircle } from "lucide-react";
+// import { useToast } from "@/components/ui/use-toast"; // Optional: only if you're using shadcn/ui toast
 
 const ContactSection = () => {
   const [formState, setFormState] = useState({
@@ -16,32 +17,74 @@ const ContactSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // If you're using shadcn/ui toast component
+  // const { toast } = useToast();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing again
+    if (error) setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
 
-    // In a real application, you would send the form data to your backend here
-    console.log("Form submitted:", formState);
+      const data = await response.json();
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormState({ name: "", email: "", message: "" });
+      if (!response.ok) {
+        throw new Error(
+          data.error || "Something went wrong. Please try again."
+        );
+      }
 
-    // Reset submission status after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 5000);
+      // Success handling
+      setIsSubmitted(true);
+      setFormState({ name: "", email: "", message: "" });
+
+      // If using toast
+      /* toast({
+        title: "Message sent!",
+        description: "Thanks for reaching out. I'll get back to you soon.",
+        variant: "success",
+      }); */
+
+      // Reset submission status after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
+
+      // If using toast
+      /* toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
+        variant: "destructive",
+      }); */
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const fadeInUp = {
@@ -73,10 +116,10 @@ const ContactSection = () => {
         <motion.div variants={fadeInUp} className="mb-12 text-center">
           <h2 className="text-4xl font-bold mb-4 text-blue-500">Contact</h2>
           <div className="w-16 h-1 bg-blue-500 mx-auto"></div>
-          <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
+          {/* <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
             Have a project in mind or want to discuss a potential collaboration?
             Feel free to reach out!
-          </p>
+          </p> */}
         </motion.div>
 
         <motion.div variants={fadeInUp}>
@@ -96,6 +139,13 @@ const ContactSection = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <div className="p-4 bg-red-900/50 border border-red-500 rounded-md flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
+                    <p className="text-red-200 text-sm">{error}</p>
+                  </div>
+                )}
+
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-gray-200">
                     Name

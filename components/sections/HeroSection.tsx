@@ -10,7 +10,7 @@ const HeroSection = () => {
 
       <AnimatedTitle />
 
-      <span className="text-gray-300 mt-6">
+      <span className="text-gray-300 mt-6 text-center">
         Hi, I'm Alec! I create fullstack software solutions{" "}
       </span>
 
